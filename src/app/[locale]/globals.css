@@ -1,0 +1,32 @@
+@import "../../../public/icomoon-fonts/icons.css";
+@import "../../../public/fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "ProximaNova", sans-serif;
+  font-weight: 400;
+}
+
+html,
+body {
+  background-color: #f7f8fa !important;
+}
+
+button {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.container {
+  @apply max-w-[1224px] mx-auto px-5;
+}
+
+/* .dark-gradient-button {
+  @apply text-white;
+  background: linear-gradient(84.8deg, #383838 0%, #6f6f6f 131.39%);
+}
+.dark-gradient-button:hover {
+  background: linear-gradient(84.8deg, #d8d8d8 0%, #ececec 131.39%);
+} */
