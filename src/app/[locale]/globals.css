@@ -23,6 +23,16 @@ button {
   @apply max-w-[1224px] mx-auto px-5;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    @apply max-w-[1224px] mx-auto px-3;
+  }
+}
+
+img {
+  max-width: none;
+}
+
 /* .dark-gradient-button {
   @apply text-white;
   background: linear-gradient(84.8deg, #383838 0%, #6f6f6f 131.39%);

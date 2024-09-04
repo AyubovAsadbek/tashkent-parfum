@@ -1,5 +1,5 @@
 interface ButtonProps {
-  variant?: "dark" | "primary";
+  variant?: "dark" | "primary" | "outline";
   iconLeft?: boolean;
   iconRight?: boolean;
   text?: string;
@@ -14,6 +14,7 @@ interface ButtonProps {
 const variants = {
   dark: "bg-[#383838]  hover:bg-[#d8d8d8] hover:text-black",
   primary: "bg-[#F62559] hover:bg-[#FA0738] hover:shadow-lg",
+  outline: "bg-transparent",
 };
 
 const Button: React.FC<ButtonProps> = ({

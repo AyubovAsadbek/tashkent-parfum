@@ -1,8 +1,9 @@
 import Link from "next/link";
 import LanguageSwitcher from "./Language-switcher";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import logo from "../../public/images/svg/logo.svg";
+import appIcon from "../../public/images/svg/app-icon.svg";
 import Image from "next/image";
 import Button from "./base/Button";
 import FormInput from "./Form/FormInput";
@@ -10,10 +11,64 @@ import FormInput from "./Form/FormInput";
 const Navbar = () => {
   // Language Switcher
   const t = useTranslations();
+  const activeLanguage = useLocale();
 
   return (
     <header>
-      <div className="bg-greyPrimar">
+      <div className="border-b block phone:hidden">
+        <div className="container py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Image
+              src={appIcon}
+              alt="parfum-app"
+              className="h-14 w-14 rounded-2xl"
+            />
+            <div>
+              <h4 className="text-base font-semibold">Toshkent parfum</h4>
+              <p className="text-xs  text-gray mt-0.5">Shopping</p>
+            </div>
+          </div>
+          <Link
+            className="px-4 py-2 bg-red capitalize rounded-2xl transition-300 bg-[#F42558] text-white text-xs  font-semibold"
+            href={"/"}
+          >
+            {t("see")}
+          </Link>
+        </div>
+      </div>
+      <div className="bg-white block tablet:hidden">
+        <div className="container py-5 flex items-center justify-between">
+          <div className="flex items-center">
+            <button>
+              <i className="icon-Hamburger-Menu text-[#6F6F6F] text-[28px] leading"></i>
+            </button>
+            <Link href={`$`} className="">
+              <Image src={logo} className="h-9" alt="Logo Image" />
+            </Link>
+          </div>
+          <div className="flex gap-2 items-center">
+            <Link
+              href={`${activeLanguage}/my-orders`}
+              className="text-greySecondary leading-none transition duration-200 hover:text-redPrimary"
+            >
+              <i className="icon-Box text-[28px]"></i>
+            </Link>
+            <Link
+              href={`${activeLanguage}/cart`}
+              className="text-greySecondary leading-none transition duration-200 hover:text-redPrimary"
+            >
+              <i className="icon-Cart text-[28px]"></i>
+            </Link>
+            <Link
+              href={`${activeLanguage}/favourites`}
+              className="text-greySecondary leading-none transition duration-200 hover:text-redPrimary"
+            >
+              <i className="icon-Heart text-[28px]"></i>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="bg-greyPrimar hidden tablet:block">
         <div className="container py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link
@@ -94,10 +149,10 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white py-4 border-b border-[#F2F3F5]">
+      <div className="bg-[#f8f8f8] tabletsm:bg-white py-4 tablet:py-4 border-b border-[#F2F3F5]">
         <div className="container flex items-center justify-between">
           {/* Logo */}
-          <Link href={"/"} className="mr-6">
+          <Link href={"/"} className="mr-6 hidden tablet:block ">
             <Image src={logo} alt="Logo Image" />
           </Link>
           <Button
@@ -105,8 +160,9 @@ const Navbar = () => {
             variant="dark"
             iconLeft={true}
             icon="icon-Hamburger-Menu text-2xl"
+            customClass="hidden tablet:flex"
           />
-          <form className="max-w-[530px] w-full group mr-2">
+          <form className="tablet:max-w-[530px] w-full group tablet:mr-2">
             <FormInput
               id="search"
               // onChange={() => {}}
@@ -114,27 +170,27 @@ const Navbar = () => {
               placeholder={t("search")}
               before="icon-search"
               // value=""
-              parentClass="h-11 border border-transparent ml-2 items-center bg-[#F2F3F5] rounded-lg w-full group-focus-within:border-black"
+              parentClass="h-11 border border-transparent tablet:ml-2 items-center bg-[#ECEDEF] rounded-lg w-full group-focus-within:border-black"
               inputClass="h-full w-full outline-none bg-transparent "
             />
           </form>
-          <div className="ml-3 flex gap-5">
+          <div className="ml-3 hidden gap-5 tablet:flex">
             <Link
-              href={"/"}
-              className="flex items-center flex-col capitalize text-greySecondary transition duration-200 hover:text-redPrimary"
+              href={`${activeLanguage}/my-orders`}
+              className="flex items-center flex-col w-[67px] capitalize text-greySecondary transition duration-200 hover:text-redPrimary"
             >
               <i className="icon-Box text-[28px]"></i>
               <span className="text-xs">{t("myOrders")}</span>
             </Link>
             <Link
-              href={"/"}
+              href={`${activeLanguage}/cart`}
               className="flex items-center flex-col capitalize text-greySecondary transition duration-200 hover:text-redPrimary"
             >
               <i className="icon-Cart text-[28px]"></i>
               <span className="text-xs">{t("cart")}</span>
             </Link>
             <Link
-              href={"/"}
+              href={`${activeLanguage}/favourites`}
               className="flex items-center flex-col capitalize text-greySecondary transition duration-200 hover:text-redPrimary"
             >
               <i className="icon-Heart text-[28px]"></i>
@@ -146,56 +202,59 @@ const Navbar = () => {
             iconLeft={true}
             icon="icon-Login text-2xl"
             variant="primary"
-            customClass="ml-8"
+            customClass="ml-8 hidden tablet:flex"
           />
         </div>
       </div>
-      <div className="bg-white py-4">
-        <div className="container flex items-center justify-between">
+      <div className="bg-white py-4 hidden tablet:block">
+        <div className="container flex items-center  justify-between">
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            <span className="font-semibold">Топ 10 товаров</span>
+            {t("Beauty")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Скидки
+            {t("Bags")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Товары для лица
+            {t("Perfume")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Ванные бомбочки
+            {t("HairCare")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Продукты макияжа
+            {t("HouseholdChemicals")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Краски для волос
+            {t("MensSection")}
           </Link>
           <Link
             href="/"
-            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4"
+            className="text-[#383838] text-[14px] font-semibold border-r-2 pr-4 transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
           >
-            Мужские продукты
+            {t("DepilationAndEpilation")}
           </Link>
-          <Link href="/" className="text-[#383838] font-semibold">
-            Товары для ванны и уборной
+          <Link
+            href="/"
+            className="text-[#383838] font-semibold transition duration-200 hover:text-redPrimary hover:-translate-y-0.5"
+          >
+            {t("DeodorantsAndAntiperspirants")}
           </Link>
         </div>
       </div>
